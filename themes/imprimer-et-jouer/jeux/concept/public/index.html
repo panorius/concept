@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Concept-online</title>
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+</head>
+<body>
+<div class="header">
+    <div class="room-name"><img height="60px" src="img/imprimer-et-jouer-logo.png" alt=""></div>
+    <div class="turn-of">
+        <i class="fa fa-gg" aria-hidden="true"></i><span>Title</span><i class="fa fa-gg" aria-hidden="true"></i>
+        <p id="turnMessage">Turn of ... | Remaining time: ... sec</p>
+    </div>
+    <div class="info-room">
+        <span>Theme ...</span><br>
+        <span>Difficulty ...</span><br>
+        <span>Round 1/12</span>
+    </div>
+</div><div class="clear-float"></div>
+<div class="body">
+    <div class="aside-left pick-color">
+        <p class="titre-list center">Pick Color</p>
+
+            <div class="green-color-pick">
+                <input type="radio" class="radio_color" id="radio01" name="radio" value="green"/>
+                <label for="radio01"><span></span><b class="concept">?</b><b class="number">9</b></label>
+                <button id="delete-green" class="button-trash"><i class="fa fa-times" aria-hidden="true"></i></button>
+            </div>
+
+            <div class="red-color-pick">
+                <input type="radio" class="radio_color" id="radio02" name="radio" value="red"/>
+                <label for="radio02"><span></span><b class="concept">!</b><b class="number">9</b></label>
+                <button id="delete-red" class="button-trash"><i class="fa fa-times" aria-hidden="true"></i></button>
+            </div>
+
+            <div class="blue-color-pick">
+                <input type="radio" class="radio_color" id="radio03" name="radio" value="blue"/>
+                <label for="radio03"><span></span><b class="concept">!</b><b class="number">9</b></label>
+                <button id="delete-blue" class="button-trash"><i class="fa fa-times" aria-hidden="true"></i></button>
+            </div>
+
+            <div class="yellow-color-pick">
+                <input type="radio" class="radio_color" id="radio04" name="radio" value="yellow"/>
+                <label for="radio04"><span></span><b class="concept">!</b><b class="number">9</b></label>
+                <button id="delete-yellow" class="button-trash"><i class="fa fa-times" aria-hidden="true"></i></button>   
+            </div>
+
+    <button id="delete-all" class="button-trash-all"><i class="fa fa-times" aria-hidden="true"></i> Clear All</button>
+    </div>
+    <div class="area-game">
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <p id="messageModal"></p>
+            </div>
+
+        </div>
+
+        <div id="toggle">
+            <div id="word" class="row">
+                <input type="text" class="place-word" placeholder="Word"> <button class="btn-hide"><i class="fa fa-eye-slash" aria-hidden="true"></i></button>
+            </div>
+            <div id="pass" class="row">
+                <button class="btn-give-up">Give up</button>
+            </div>
+
+            <div class="row">
+                <button id="rdy" onclick="socket.emit('rdy');" class="btn-ready">Pas prêt</button>
+            </div>
+            <div class="row top20">
+            <p class="center titre-list">Player list</p>
+            </div>
+                    <table class="top10 tp">
+                    </table>
+
+
+
+            <div id="close-menu" class="slide">
+                <button><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+            </div>
+
+            <section id="chat" class="top20 botDiv">
+                <ul id="messages"></ul>
+                <form id="form_chat" action="">
+                    <input id="m" autocomplete="off" placeholder="Écrivez un message..." /><button><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                </form>
+            </section>
+
+        </div>
+
+        <div id="open-menu" class="slide">
+            <button><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+        </div>
+
+        <!-- BOARDGAME -->
+
+        <div class="container-boardgame iframe-boardgame">
+            <div class="group-icon">
+                <div id="A1"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/a1.png" title="Objet, Paquet, Carton" alt="Objet, Paquet, Carton"></div>
+                <div id="A2"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/a2.png" title="Femme, Féminin, Femelle" alt="Femme, Féminin, Femelle"></div>
+                <div id="A3"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/a3.png" title="Travail, Métier" alt="Travail, Métier"></div>
+                <div id="A4"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/a4.png" title="Faune, Animaux" alt="Faune, Animaux"></div>
+                <div id="A5"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/a5.png" title="Littérature, Ecriture, Livre" alt="Littérature, Ecriture, Livre"></div>
+                <div id="A6"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/a6.png" title="Cinéma, Film, Caméra" alt="Cinéma, Film, Caméra"></div>
+                <div id="A7"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/a7.png" title="Télévision, Emission, Série" alt="Télévision, Emission, Série"></div>
+                <div id="A8"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/a8.png" title="Idée, Pensée, Concept" alt="Idée, Pensée, Concept"></div>
+            </div>
+            <div class="group-icon">
+                <div id="B1"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/b1.png" title="Famille, Société, Groupe" alt="Famille, Société, Groupe"></div>
+                <div id="B2"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/b2.png" title="Homme, Masculin, Mâle" alt="Homme, Masculin, Mâle"></div>
+                <div id="B3"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/b3.png" title="Loisir, Sport, Activité" alt="Loisir, Sport, Activité"></div>
+                <div id="B4"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/b4.png" title="Flore, Plante, Nature" alt="Flore, Plante, Nature"></div>
+                <div id="B5"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/b5.png" title="Musique, Chanson, Note" alt="Musique, Chanson, Note"></div>
+                <div id="B6"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/b6.png" title="Art, Scrulture, Peinture, Dessin, Bande dessinée" alt="Art, Scrulture - Peinture, Dessin - Bande dessinée"></div>
+                <div id="B7"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/b7.png" title="Titre, Marque, Nom" alt="Titre, Marque, Nom"></div>
+                <div id="B8"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/b8.png" title="Expression, Citation - Dialogue, Mot" alt="Expression, Citation - Dialogue, Mot"></div>
+            </div>
+            <div class="group-icon">
+                <div id="C1"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/c1.png" title="Lieu, Pays, Drapeau" alt="Lieu, Pays, Drapeau"></div>
+                <div id="C2"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/c2.png" title="Date, Evenement, Jour" alt="Date, Evenement, Jour"></div>
+                <div id="C3"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/c3.png" title="Véhicule marin, Maritime, Nager" alt="Véhicule marin, Maritime, Nager"></div>
+                <div id="C4"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/c4.png" title="Véhicule routier, Voiture, Rouler" alt="Véhicule routier, Voiture, Rouler"></div>
+                <div id="C5"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/c5.png" title="Jeux, Jouer" alt="Jeux, Jouer"></div>
+                <div id="C6"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/c6.png" title="Alimentaire, Nourriture, Comestible" alt="Alimentaire, Nourriture, Comestible"></div>
+                <div id="C7"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/c7.png" title="Réel, Historique" alt="Réel, Historique"></div>
+                <div id="C8"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/c8.png" title="Enfant - Bébé, Jeune, Nouveau" alt="Enfant - Bébé, Jeune, Nouveau"></div>
+            </div>
+            <div class="group-icon">
+                <div id="D1"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/d1.png" title="Batiment, Construction, Ville" alt="Batiment, Construction, Ville"></div>
+                <div id="D2"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/d2.png" title="Fête, Anniversaire" alt="Fête, Anniversaire"></div>
+                <div id="D3"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/d3.png" title="Véhicule volant, Aérien, Voler" alt="Véhicule volant, Aérien, Voler"></div>
+                <div id="D4"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/d4.png" title="Outil" alt="Outil"></div>
+                <div id="D5"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/d5.png" title="Vêtement, Accessoire, Costume" alt="Vêtement, Accessoire, Costume"></div>
+                <div id="D6"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/d6.png" title="Maison, Intérieur, Domestique" alt="Maison, Intérieur, Domestique"></div>
+                <div id="D7"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/d7.png" title="Fictif, Imaginaire" alt="Fictif, Imaginaire"></div>
+                <div id="D8"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/d8.png" title="Vieux - Adulte, Ancien, Passé" alt="Vieux - Adulte, Ancien, Passé"></div>
+            </div>
+            <div class="group-icon">
+                <div id="E1"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/e1.png" title="Lent, Tortue" alt="Lent, Tortue"></div>
+                <div id="E2"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/e2.png" title="Défense, Protection, Mur" alt="Défense, Protection, Mur"></div>
+                <div id="E3"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/e3.png" title="Vie, Coeur, Amour" alt="Vie, Coeur, Amour"></div>
+                <div id="E4"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/e4.png" title="Joyeux, Positif" alt="Joyeux, Positif"></div>
+                <div id="E5"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/e5.png" title="Electronique, Informatique" alt="Electronique, Informatique"></div>
+                <div id="E6"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/e6.png" title="Argent, Riche, Cher" alt="Argent, Riche, Cher"></div>
+                <div id="E7"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/e7.png" title="Religion, Mythe, Croyance" alt="Religion, Mythe, Croyance"></div>
+                <div id="E8"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/e8.png" title="Science, Mathématique, Chimie" alt="Science, Mathématique, Chimie"></div>
+            </div>
+            <div class="group-icon">
+                <div id="F1"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/f1.png" title="Rapide, vif, Fusée" alt="Rapide, vif, Fusée"></div>
+                <div id="F2"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/f2.png" title="Conflit, Arme, Combattre" alt="Conflit, Arme, Combattre"></div>
+                <div id="F3"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/f3.png" title="Mort, Mal, Maladie" alt="Mort, Mal, Maladie"></div>
+                <div id="F4"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/f4.png" title="Triste, Négatif" alt="Triste, Négatif"></div>
+                <div id="F5"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/f5.png" title="Mécanique, Industriel" alt="Mécanique, Industriel"></div>
+                <div id="F6"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/f6.png" title="Temps, Durée" alt="Temps, Durée"></div>
+                <div id="F7"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/f7.png" title="Pouvoir, Politque" alt="Pouvoir, Politque"></div>
+                <div id="F8"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/f8.png" title="Médical, Médicament, Soigner" alt="Médical, Médicament, Soigner"></div>
+            </div>
+            <div class="group-icon">
+                <div id="G1"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/g1.png" title="Tête, Visage" alt="Tête, Visage"></div>
+                <div id="G2"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/g2.png" title="Torse, Ventre, Corps" alt="Torse, Ventre, Corps"></div>
+                <div id="G3"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/g3.png" title="Oreille, Entendre, Son" alt="Oreille, Entendre, Son"></div>
+                <div id="G4"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/g4.png" title="Oeil, Vue, Voir" alt="Oeil, Vue, Voir"></div>
+                <div id="G5"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/g5.png" title="Nuage, Pluie, Neige - Froid" alt="Nuage, Pluie, Neige - Froid"></div>
+                <div id="G6"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/g6.png" title="Nuit, Soir, Lune" alt="Nuit, Soir, Lune"></div>
+                <div id="G7"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/g7.png" title="Feu, Brûler" alt="Feu, Brûler"></div>
+                <div id="G8"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/g8.png" title="Air, Vent, Souffler" alt="Air, Vent, Souffler"></div>
+            </div>
+            <div class="group-icon">
+                <div id="H1"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/h1.png" title="Bras, Main" alt="Bras, Main"></div>
+                <div id="H2"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/h2.png" title="Jambe, Pied" alt="Jambe, Pied"></div>
+                <div id="H3"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/h3.png" title="Nez, Odeur, Sentir" alt="Nez, Odeur, Sentir"></div>
+                <div id="H4"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/h4.png" title="Bouche, Goût, Manger" alt="Bouche, Goût, Manger"></div>
+                <div id="H5"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/h5.png" title="Eclair, Electricité, Tempête - Colère" alt="Eclair, Electricité, Tempête - Colère"></div>
+                <div id="H6"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/h6.png" title="Soleil - Chaud, Lumière, Jour" alt="Jeux vidéo"></div>
+                <div id="H7"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/h7.png" title="Eau, Liquide, Aquatique" alt="Eau, Liquide, Aquatique"></div>
+                <div id="H8"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/h8.png" title="Terre" alt="Terre"></div>
+            </div>
+            <div class="group-icon">
+                <div id="I1"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/i1.png" title="Roche, Minéral, Dur" alt="Roche, Minéral, Dur"></div>
+                <div id="I2"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/i2.png" title="Métal" alt="Jeux vidéo"></div>
+                <div id="I3"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/i3.png" title="Plastique, Caoutchouc" alt="Plastique, Caoutchouc"></div>
+                <div id="I4"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/i4.png" title="Opposé, Contraire, Inversé" alt="Opposé, Contraire, Inversé"></div>
+                <div id="I5"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/i5.png" title="Fragment, Multitude, Poudre" alt="Fragment, Multitude, Poudre"></div>
+                <div id="I6"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/i6.png" title="Dedans, Interne" alt="Dedans, Interne"></div>
+                <div id="I7"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/i7.png" title="Zéro, Néant, Nul" alt="Zéro, Néant, Nul"></div>
+                <div id="I8"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/i8.png" title="Egal, Equivalent, Synonyme" alt="Egal, Equivalent, Synonyme"></div>
+            </div>
+            <div class="group-icon">
+                <div id="J1"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/j1.png" title="Bois" alt="Bois"></div>
+                <div id="J2"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/j2.png" title="Tissu" alt="Tissu"></div>
+                <div id="J3"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/j3.png" title="Papier, Feuille" alt="Papier, Feuilles"></div>
+                <div id="J4"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/j4.png" title="Couper, Sépare, Moitié" alt="Jeux vidéo"></div>
+                <div id="J5"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/j5.png" title="Partie de, Morceau de, Pièce de" alt="Partie de, Morceau de, Pièce de"></div>
+                <div id="J6"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/j6.png" title="Grille, Réseau, Prison" alt="Grille, Réseau, Prison"></div>
+                <div id="J7"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/j7.png" title="Unité, Un" alt="Unité, Un"></div>
+                <div id="J8"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/j8.png" title="Jeux vidéo" alt="Jeux vidéo"></div>
+            </div>
+            <div class="group-icon">
+                <div id="K1"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/k1.png" title="Ligne droite, Droit" alt="Ligne droite, Droit"></div>
+                <div id="K2"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/k2.png" title="Croix, Croisement" alt="Croix, Croisement"></div>
+                <div id="K3"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/k3.png" title="Spirale, Ivresse - Folie, Poil" alt="Spirale, Ivresse - Folie, Poil"></div>
+                <div id="K4"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/k4.png" title="Anneau, Cercle" alt="Anneau, Cercle"></div>
+                <div id="K5"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/k5.png" title="Triangle" alt="Triangle"></div>
+                <div id="K6"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/k6.png" title="Rectangle, Carré" alt="Rectangle, Carré"></div>
+                <div id="K7"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/k7.png" title="Cube, Pavé" alt="Cube, Pavé"></div>
+                <div id="K8"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/k8.png" title="Pyramide" alt="Pyramide"></div>
+            </div>
+            <div class="group-icon">
+                <div id="L1"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/l1.png" title="Arc, Courbé, Bombé" alt="Arc, Courbé, Bombé"></div>
+                <div id="L2"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/l2.png" title="Ligne brisée, Pointue, Accidenté" alt="Ligne brisée, Pointue, Accidenté"></div>
+                <div id="L3"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/l3.png" title="Sinusoïdale, Ondulation, Cheveux - Rivière" alt="Sinusoïdale, Ondulation, Cheveux - Rivière"></div>
+                <div id="L4"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/l4.png" title="Rond" alt="Rond"></div>
+                <div id="L5"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/l5.png" title="Etoile" alt="Etoile"></div>
+                <div id="L6"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/l6.png" title="Plat" alt="Plat"></div>
+                <div id="L7"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/l7.png" title="Sphère" alt="Sphère"></div>
+                <div id="L8"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/l8.png" title="Cylindre" alt="Cylindre"></div>
+            </div>
+            <div class="group-icon">
+                <div id="M1"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/m1.png" title="Cône" alt="Cône"></div>
+                <div id="M2"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/m2.png" title="Grand, Plus Grand, Plus haut" alt="Grand, Plus Grand, Plus haut"></div>
+                <div id="M3"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/m3.png" title="Gros - Large, Plus large, plus long" alt="Gros - Large, Plus large, plus long"></div>
+                <div id="M4"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/m4.png" title="Haut, Monter" alt="Haut, Monter"></div>
+                <div id="M5"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/m5.png" title="Gauche, Début, Avant" alt="Gauche, Début, Avant"></div>
+                <div id="M6"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/m6.png" title="Tourner, Entourer, Cycle" alt="Tourner, Entourer, Cycle"></div>
+                <div id="M7"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/m7.png" title="Noir" alt="Noir"></div>
+                <div id="M8"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/m8.png" title="Gris" alt="Gris"></div>
+            </div>
+            <div class="group-icon">
+                <div id="N1"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/n1.png" title="Creux, Trou, Percé" alt="Creux, Trou, Percé"></div>
+                <div id="N2"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/n2.png" title="Petit, Plus petit, Plus bas" alt="Petit, Plus petit, Plus bas"></div>
+                <div id="N3"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/n3.png" title="Mince - Fin, PLus étroit, Plus court" alt="Mince - Fin, PLus étroit, Plus court"></div>
+                <div id="N4"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/n4.png" title="Bas, Descendre" alt="Bas, Descendre"></div>
+                <div id="N5"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/n5.png" title="Droite, Fin, Après" alt="Droite, Fin, Après"></div>
+                <div id="N6"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/n6.png" title="Utiliser - Actionner, Verbe" alt="Utiliser - Actionner, Verbe"></div>
+                <div id="N7"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/n7.png" title="Blanc" alt="Blanc"></div>
+                <div id="N8"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/n8.png" title="Transparent, Invisible, Verre" alt="Transparent, Invisible, Verre"></div>
+            </div>
+            <div class="group-icon">
+                <div id="O1"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/o1.png" title="blue" alt="blue"></div>
+                <div id="O2"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/o2.png" title="yellow" alt="yellow"></div>
+                <div id="O3"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/o3.png" title="Brun" alt="Brun"></div>
+                <div id="O4"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/o4.png" title="Violet" alt="Violet"></div>
+                <div id="O5"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/o5.png" title="Orange" alt="Orange"></div>
+                <div id="O6"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/o6.png" title="Rose" alt="Rose"></div>
+                <div id="O7"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/o7.png" title="red" alt="red"></div>
+                <div id="O8"><div class="green">0</div> <div class="red">0</div> <div class="blue">0</div> <div class="yellow">0</div>  <img src="img/o8.png" title="green" alt="green"></div>
+            </div>
+
+        </div>
+
+
+
+
+        <!--<<<<<<< HEAD-->
+        <!--<iframe src="boardgame.html" id ="iframe-boardgame" class="iframe-boardgame" frameborder="0"></iframe>-->
+        <!--=======-->
+        <!--&gt;>>>>>> b7355573380ac719b862c5cca86ba73c3f924d7b-->
+    </div>
+
+    <div class="aside-right">
+
+    </div>
+
+</div>
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script src="client.js"></script>
+<script type="text/javascript" src="js/demo.js"></script>
+</body>
+</html>

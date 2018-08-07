@@ -1,0 +1,15 @@
+This module force virtual products quantities in cart to be limited to 1.
+
+It's subject to copyright restriction, see LICENCE file included.
+
+# Installation
+
+- copy the folder limitquantityforvirtualproducts in the modules directory of the prestashop installation.
+- in prestashop backoffice, in 'modules' section, find the module then click 'install'
+
+# Trouble shooting.
+
+If CartController file is already overriden in you installation, module installation will fails.
+This is a Prestashop limitation, not related to the module.
+You have to manualy install the module. Ask a developper to do it. I can do it, contact me sebastienmonterisi@yahoo.fr
+

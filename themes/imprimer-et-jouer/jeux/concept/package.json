@@ -1,0 +1,20 @@
+{
+  "name": "InspiratiOnline",
+  "description": "Concept Multiplayer Game Like",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "latest",
+    "socket.io": "latest",
+    "ent": "latest",
+    "path": "latest",
+    "mongoose":"latest"
+  },
+  "main": "server_app.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "node server_app.js",
+    "start": "node server_app.js"
+  },
+  "author": "Zohair <z.fernane@gmail.com>"
+}

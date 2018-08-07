@@ -1,0 +1,6 @@
+cache
+config/xml
+.idea
+themes/imprimer-et-jouer/jeux/concept/node_modules
+modules/gamification/views/css/
+img/tmp
